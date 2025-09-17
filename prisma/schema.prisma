@@ -1,12 +1,19 @@
+// Prisma client generator — allows us to use `@prisma/client` in Node.js
+
 generator client {
   provider = "prisma-client-js"
 }
 
+
+// Data source — points Prisma to our PostgreSQL database using .env variable
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// ----------------------------
+// User Model
+// ----------------------------
 model User {
   id           Int     @id @default(autoincrement())
   name         String
@@ -17,6 +24,9 @@ model User {
   createdAt    DateTime @default(now())
 }
 
+// ----------------------------
+// Poll Model
+// ----------------------------
 model Poll {
   id          Int          @id @default(autoincrement())
   question    String
@@ -28,6 +38,9 @@ model Poll {
   updatedAt   DateTime     @updatedAt
 }
 
+// ----------------------------
+// PollOption Model
+// ----------------------------
 model PollOption {
   id       Int    @id @default(autoincrement())
   text     String
@@ -36,6 +49,9 @@ model PollOption {
   votes    Vote[]
 }
 
+// ----------------------------
+// Vote Model (Join Table)
+// ----------------------------
 model Vote {
   id           Int        @id @default(autoincrement())
   user         User       @relation(fields: [userId], references: [id])

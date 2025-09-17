@@ -3,6 +3,8 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const router = express.Router();
 
+
+// Create a new user
 router.post('/', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) return res.status(400).json({ error: "All fields required" });
@@ -10,6 +12,8 @@ router.post('/', async (req, res) => {
   res.json(user);
 });
 
+
+//get the user by id
 router.get('/:id', async (req, res) => {
   const user = await prisma.user.findUnique({
     where: { id: Number(req.params.id) },

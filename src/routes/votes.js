@@ -3,6 +3,8 @@ const express = require('express');
 module.exports = ({ broadcastPollCounts, prisma }) => {
   const router = express.Router();
 
+
+  //create vote and broadcast poll counts
   router.post('/', async (req, res) => {
     const { userId, pollOptionId } = req.body;
     if (!userId || !pollOptionId) return res.status(400).json({ error: "userId, pollOptionId required" });
